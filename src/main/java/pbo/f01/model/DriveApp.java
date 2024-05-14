@@ -9,9 +9,6 @@ public class DriveApp {
 
     private static ArrayList<Student> containerStd = new ArrayList<Student>();
     private static ArrayList<Dorm> containerDrm = new ArrayList<Dorm>();
-    private static ArrayList<Student> DormK = new ArrayList<Student>();
-    private static ArrayList<Student> DormP = new ArrayList<Student>();
-    private static ArrayList<Student> DormM = new ArrayList<Student>();
 
     static int countmale = 0;
     static int countfemale = 0;
@@ -44,12 +41,10 @@ public class DriveApp {
             }
         }
 
-        for(Student std : containerStd){
-            if(std.getGender().equals("male")){
-                countmale = countmale + 1;
-            }else{
-                countfemale = countfemale + 1;
-            }
+        if(gender.equals("male")){
+            countmale = countmale + 1;
+        }else{
+            countfemale = countfemale + 1;
         }
 
         if(cek == false && countmale <= 6 && countfemale <= 6){
@@ -138,16 +133,6 @@ public class DriveApp {
                 for(Student std : students){
                     if(std.getId_student().equals(id_student) && drm.getType().equals(std.getGender())){
                         if(drm.getfill() < drm.getCapacity()){
-
-                            Student newStd = new Student(std.getId_student(), std.getName_student(), std.getYear(),std.getGender());
-                            if(drm.getDorm_name().equals("Kapernaum")){
-                                DormK.add(newStd);
-                            }else if(drm.getDorm_name().equals("Mamre")){
-                                DormM.add(newStd);
-                            }else{
-                                DormP.add(newStd);
-                            }
-
                             entityManager.getTransaction().begin();
                             drm.Setfill(1);
                             entityManager.flush();
