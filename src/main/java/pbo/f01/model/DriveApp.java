@@ -51,8 +51,8 @@ public class DriveApp {
                 countfemale = countfemale + 1;
             }
         }
-        
-        if(cek == false && countmale < 6 && countfemale < 6){
+
+        if(cek == false && countmale <= 6 && countfemale <= 6){
             Student newStudent = new Student(id_student, name_student, year,gender);
             containerStd.add(newStudent);
             entityManager.getTransaction().begin();
@@ -88,46 +88,24 @@ public class DriveApp {
                 setParameter("type", type).    
                 getResultList();
 
-        String showdorm = "SELECT d FROM Dorm d ORDER BY d.dorm_name ASC";
-        List<Dorm> dorm = entityManager.createQuery(showdorm, Dorm.class).   
-                getResultList();
+        // String showdorm = "SELECT d FROM Dorm d ORDER BY d.dorm_name ASC";
+        // List<Dorm> dorm = entityManager.createQuery(showdorm, Dorm.class).   
+        //         getResultList();
         
 
-        // // for(Dorm drm : containerDrm ){
-        // //     for(Student std : students){
-        // //         if(std.getGender().equals("male") && countmale < 6 && drm.getDorm_name().equals("") ){
-        // //             countmale = countmale + 1;
-        // //             System.out.println(std.toString());
-        // //         }else(std.getGender().equals("female") && countfemale < 6)
-        // //         System.out.println(std.toString());
-        // //     }
-        // // }
-        // int jlh = students.size();
-
-        // for(Dorm drm : dorm){
+        // for(Dorm drm : containerDrm ){
         //     for(Student std : students){
-        //             if(drm.getDorm_name().equals(dorm_name) && std.getGender().equals("male") && jlh < 6){
-        //                 System.out.println(std.toString());
-        //             }else if(drm.getDorm_name().equals(dorm_name) && std.getGender().equals("female") && jlh < 6){
-        //                 System.out.println(std.toString());
-        //             }
-        //     }
-        // 
-        // for(Dorm drm : dorm){
-        //     if(drm.getDorm_name().equals("Kapernaum")){
-        //         for(int i = 0; i < 5 ; i++){
-        //             System.out.println(.toString());
-        //         }
-        //     }else if(drm.getDorm_name().equals("Mamre")){
-        //         for(int i = 0; i < 5 ; i++){
-        //             System.out.println(DormM.toString());
-        //         }
-        //     }else{
-        //         for(int i = 0; i < 5 ; i++){
-        //             System.out.println(DormP.toString());
-        //         }
+        //         if(std.getGender().equals("male") && countmale < 6  ){
+        //             countmale = countmale + 1;
+        //             System.out.println(std.toString());
+        //         }else if(std.getGender().equals("female") && countfemale < 6)
+        //         System.out.println(std.toString());
         //     }
         // }
+
+        for(Student std : students){
+            System.out.println(std.toString());
+        }
            
 
     }
