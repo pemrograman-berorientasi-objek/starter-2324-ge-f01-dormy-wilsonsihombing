@@ -9,6 +9,8 @@ public class DriveApp {
 
     private static ArrayList<Student> containerStd = new ArrayList<Student>();
     private static ArrayList<Dorm> containerDrm = new ArrayList<Dorm>();
+    static int countmale = 0;
+    static int countfemale = 0;
 
     
     public static void Initialize(){
@@ -39,7 +41,13 @@ public class DriveApp {
             }
         }
 
-        if(cek == false){
+        if(gender.equals("male")){
+            countmale = countmale + 1;
+        }else{
+            countfemale = countfemale + 1;
+        }
+
+        if(cek == false && countfemale <= 6 && countmale <= 6){
             Student newStudent = new Student(id_student, name_student, year,gender);
             containerStd.add(newStudent);
             entityManager.getTransaction().begin();
@@ -47,6 +55,7 @@ public class DriveApp {
             entityManager.flush();
             entityManager.getTransaction().commit();
         }
+        
     }
 
     public static void  addDorm(String dorm_name, int capacity, String type){
@@ -74,9 +83,10 @@ public class DriveApp {
                 setParameter("type", type).    
                 getResultList();
 
+        
         for(Student std : students){
             System.out.println(std.toString());
-        }        
+        }   
 
     }
 
@@ -87,7 +97,10 @@ public class DriveApp {
 
         for(Dorm drm : dorms){
             System.out.println(drm.toString());
-            displayStudent(drm.getType());
+            if(drm.getfill() > 0){
+                displayStudent(drm.getType());
+            }
+            
         }
     }
 
@@ -103,8 +116,8 @@ public class DriveApp {
         for(Dorm drm : dorms){
             if(drm.getDorm_name().equals(dorm_name)){
                 for(Student std : students){
-                    if(std.getId_student().equals(id_student)){
-                        if(drm.getfill() < drm.getCapacity() && drm.getType().equals(std.getGender())){
+                    if(std.getId_student().equals(id_student) && drm.getType().equals(std.getGender())){
+                        if(drm.getfill() < drm.getCapacity()){
                             entityManager.getTransaction().begin();
                             drm.Setfill(1);
                             entityManager.flush();
