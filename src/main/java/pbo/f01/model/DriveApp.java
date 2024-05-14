@@ -9,8 +9,9 @@ public class DriveApp {
 
     private static ArrayList<Student> containerStd = new ArrayList<Student>();
     private static ArrayList<Dorm> containerDrm = new ArrayList<Dorm>();
-    static int countmale = 0;
-    static int countfemale = 0;
+    private static ArrayList<Student> stdKapernaum = new ArrayList<Student>();
+    private static ArrayList<Student> stdMamre = new ArrayList<Student>();
+    private static ArrayList<Student> stdPniel = new ArrayList<Student>();
 
     
     public static void Initialize(){
@@ -41,13 +42,7 @@ public class DriveApp {
             }
         }
 
-        if(gender.equals("male")){
-            countmale = countmale + 1;
-        }else{
-            countfemale = countfemale + 1;
-        }
-
-        if(cek == false && countfemale <= 6 && countmale <= 6){
+        if(cek == false){
             Student newStudent = new Student(id_student, name_student, year,gender);
             containerStd.add(newStudent);
             entityManager.getTransaction().begin();
