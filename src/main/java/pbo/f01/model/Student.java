@@ -14,6 +14,8 @@ public class Student {
     private String year;
     @Column(name = "genders", nullable = false , length = 225)
     private String gender;
+    @Column(name = "dormy_stud", nullable = true, length = 255)
+    private String dormy;
 
     public Student() {
     
@@ -56,6 +58,14 @@ public class Student {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setDormy(String dorm){
+        this.dormy = dorm;
+    }
+
+    public String getDormy(){
+        return dormy;
     }
 
     @Override

@@ -7,13 +7,7 @@ import pbo.f01.model.*;
 
 public class App {
 
-  private static EntityManagerFactory factory;
-  private static EntityManager entityManager;
-
   public static void main(String[] args) {
-    factory = Persistence.createEntityManagerFactory("dormy_pu");
-    entityManager = factory.createEntityManager();
-
     DriveApp.Initialize();
     DriveApp.clearTableStudent();
     DriveApp.clearTableDorm();
@@ -53,8 +47,6 @@ public class App {
       }
 
     }
-    entityManager.close();
-    factory.close();
     scanner.close();
 
   }

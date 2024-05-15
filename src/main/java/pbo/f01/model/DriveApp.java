@@ -9,9 +9,6 @@ public class DriveApp {
 
     private static ArrayList<Student> containerStd = new ArrayList<Student>();
     private static ArrayList<Dorm> containerDrm = new ArrayList<Dorm>();
-
-    static int countmale = 0;
-    static int countfemale = 0;
     
     public static void Initialize(){
         factory = Persistence.createEntityManagerFactory("dormy_pu");
@@ -41,13 +38,7 @@ public class DriveApp {
             }
         }
 
-        if(gender.equals("male")){
-            countmale = countmale + 1;
-        }else{
-            countfemale = countfemale + 1;
-        }
-
-        if(cek == false && countmale <= 6 && countfemale <= 6){
+        if(cek == false){
             Student newStudent = new Student(id_student, name_student, year,gender);
             containerStd.add(newStudent);
             entityManager.getTransaction().begin();
@@ -78,30 +69,15 @@ public class DriveApp {
     }
 
     public static void displayStudent(String type, String dorm_name){
-        String showstd = "SELECT s FROM Student s WHERE s.gender = :type ORDER BY s.name_student ASC";
+        String showstd = "SELECT s FROM Student s WHERE s.gender = :type AND s.dormy = :dormName ORDER BY s.name_student ASC";
         List<Student> students = entityManager.createQuery(showstd, Student.class).
-                setParameter("type", type).    
+                setParameter("type", type).
+                setParameter("dormName", dorm_name).    
                 getResultList();
-
-        // String showdorm = "SELECT d FROM Dorm d ORDER BY d.dorm_name ASC";
-        // List<Dorm> dorm = entityManager.createQuery(showdorm, Dorm.class).   
-        //         getResultList();
-        
-
-        // for(Dorm drm : containerDrm ){
-        //     for(Student std : students){
-        //         if(std.getGender().equals("male") && countmale < 6  ){
-        //             countmale = countmale + 1;
-        //             System.out.println(std.toString());
-        //         }else if(std.getGender().equals("female") && countfemale < 6)
-        //         System.out.println(std.toString());
-        //     }
-        // }
 
         for(Student std : students){
             System.out.println(std.toString());
-        }
-           
+        }  
 
     }
 
@@ -135,6 +111,8 @@ public class DriveApp {
                         if(drm.getfill() < drm.getCapacity()){
                             entityManager.getTransaction().begin();
                             drm.Setfill(1);
+                            std.setDormy(dorm_name);
+
                             entityManager.flush();
                             entityManager.getTransaction().commit();
                         }
@@ -143,5 +121,4 @@ public class DriveApp {
             }
         }
     }
-
 }
